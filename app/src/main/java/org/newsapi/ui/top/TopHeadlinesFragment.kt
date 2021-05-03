@@ -5,21 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.newsapi.api.model.Article
 import org.newsapi.CATEGORY_GENERAL
 import org.newsapi.CATEGORY_LIST
 import org.newsapi.COUNTRY_IN
-import org.newsapi.api.model.Article
+import org.newsapi.R
 import org.newsapi.databinding.FragmentTopHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
 
 class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     CategoryAdapter.CategoryClickListener {
 
-    private lateinit var topHeadlinesViewModel: TopHeadlinesViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private var binding: FragmentTopHeadlinesBinding? = null
@@ -31,7 +32,7 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTopHeadlinesBinding.inflate(inflater, container, false)
-        topHeadlinesViewModel = ViewModelProvider(this).get(TopHeadlinesViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         setUpRecyclerView()
 
@@ -42,8 +43,8 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
 
     private fun observeForData(category: String) {
         progressBar?.visibility = View.VISIBLE
-        topHeadlinesViewModel.fetchTopHeadlines(COUNTRY_IN, category)
-        topHeadlinesViewModel.articleLiveData.observe(viewLifecycleOwner, {
+        homeViewModel.fetchTopHeadlines(COUNTRY_IN, category)
+        homeViewModel.articleLiveData.observe(viewLifecycleOwner, {
             newsRecyclerAdapter.submitList(it)
             progressBar?.visibility = View.GONE
         })
@@ -69,7 +70,8 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
     }
 
     override fun onArticleClicked(article: Article) {
-        Toast.makeText(context, article.toString(), Toast.LENGTH_SHORT).show()
+        homeViewModel.setSelectedArticle(article)
+        findNavController().navigate(R.id.action_navigation_top_headlines_to_detailFragment)
     }
 
     override fun onCategoryClicked(category: String) {

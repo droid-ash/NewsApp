@@ -1,7 +1,6 @@
-package org.newsapi.api
+package com.newsapi.api
 
 const val HEADER_X_API_KEY = "X-Api-Key"
-const val API_KEY = "7ebb4cde0ffa4410b846668c9ef1a140"
 const val BASE_URL = "https://newsapi.org/v2/"
 const val QUERY_COUNTRY = "country"
 const val QUERY_CATEGORY = "category"

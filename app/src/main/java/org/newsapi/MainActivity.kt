@@ -2,8 +2,7 @@ package org.newsapi
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         binding?.bottomNavigationView?.setOnNavigationItemReselectedListener {
             // Do nothing to ignore the reselection
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return (Navigation.findNavController(this, R.id.fragmentContainerView).navigateUp()
+                || super.onSupportNavigateUp())
     }
 
     override fun onDestroy() {

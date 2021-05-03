@@ -1,7 +1,7 @@
-package org.newsapi.api.service
+package com.newsapi.api.service
 
-import org.newsapi.api.*
-import org.newsapi.api.model.NewsApiResponse
+import com.newsapi.api.*
+import com.newsapi.api.model.NewsApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

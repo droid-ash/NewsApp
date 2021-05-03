@@ -1,4 +1,4 @@
-package org.newsapi.api.model
+package com.newsapi.api.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

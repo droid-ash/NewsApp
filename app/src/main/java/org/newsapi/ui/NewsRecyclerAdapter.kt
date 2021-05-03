@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.newsapi.api.model.Article
 import org.newsapi.R
-import org.newsapi.api.model.Article
 import org.newsapi.databinding.ArticleListItemBinding
-import org.newsapi.getTimestamp
 
 class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener) :
     ListAdapter<Article, NewsRecyclerAdapter.NewsRecyclerViewHolder>(
@@ -45,13 +44,17 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             val article = getItem(position)
             textViewSource.text = article.source.name
             textViewTitle.text = article.title
-            textViewDate.text = getTimestamp(article.publishedAt)
+            textViewDate.text = article.publishedAt
             val urlToImage = article.urlToImage
-            Glide.with(root)
-                .load(urlToImage)
-                .error(R.drawable.ic_broken_image)
-//                .transform(CircleCrop())
-                .into(imageViewNews)
+            if (urlToImage.isNullOrEmpty()) {
+                imageViewNews.load(R.drawable.ic_broken_image)
+            } else {
+                imageViewNews.load(urlToImage) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_broken_image)
+//                    transformations(CircleCropTransformation())
+                }
+            }
             holder.itemView.setOnClickListener {
                 articleClickListener.onArticleClicked(article)
             }

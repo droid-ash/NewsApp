@@ -1,4 +1,4 @@
-package org.newsapi.api.model
+package com.newsapi.api.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -12,7 +12,7 @@ data class Article(
     @Json(name = "description")
     val description: String?,
     @Json(name = "publishedAt")
-    val publishedAt: String,
+    var publishedAt: String,
     @Json(name = "source")
     val source: Source,
     @Json(name = "title")

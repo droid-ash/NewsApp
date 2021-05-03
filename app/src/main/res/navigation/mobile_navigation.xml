@@ -9,7 +9,12 @@
         android:id="@+id/navigation_top_headlines"
         android:name="org.newsapi.ui.top.TopHeadlinesFragment"
         android:label="@string/title_top_headlines"
-        tools:layout="@layout/fragment_top_headlines" />
+
+        tools:layout="@layout/fragment_top_headlines">
+        <action
+            android:id="@+id/action_navigation_top_headlines_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_explore"
@@ -22,4 +27,9 @@
         android:name="org.newsapi.ui.saved.SavedFragment"
         android:label="@string/title_saved"
         tools:layout="@layout/fragment_saved" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="org.newsapi.ui.detail.DetailFragment"
+        android:label="Article"
+        tools:layout="@layout/detail_fragment" />
 </navigation>

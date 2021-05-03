@@ -1,6 +1,6 @@
 package org.newsapi.ui.top
 
-import org.newsapi.api.NewsApiClient
+import com.newsapi.api.NewsApiClient
 
 object TopHeadlinesRepository {
 

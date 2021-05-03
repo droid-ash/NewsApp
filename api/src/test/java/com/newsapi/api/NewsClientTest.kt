@@ -1,4 +1,4 @@
-package org.newsapi.api
+package com.newsapi.api
 
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
