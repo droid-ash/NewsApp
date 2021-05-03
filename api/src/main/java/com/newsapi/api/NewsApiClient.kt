@@ -9,7 +9,7 @@ class NewsApiClient {
 
     private val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
         val requestBuilder = chain.request().newBuilder()
-        requestBuilder.header(HEADER_X_API_KEY, "BuildConfig")
+        requestBuilder.header(HEADER_X_API_KEY, BuildConfig.API_KEY)
         chain.proceed(requestBuilder.build())
     }.build()
 
