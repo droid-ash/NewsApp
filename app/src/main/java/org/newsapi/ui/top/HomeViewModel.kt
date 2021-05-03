@@ -1,6 +1,5 @@
 package org.newsapi.ui.top
 
-import android.content.ClipData.Item
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +30,7 @@ class HomeViewModel : ViewModel() {
 
     private fun getListFromResponse(it: Response<NewsApiResponse>): List<Article>? {
         val articles = it.body()?.articles
-        articles?.map { a -> a.publishedAt = getTimestamp(a.publishedAt) }
+        articles?.map { a -> { a.publishedAt = getTimestamp(a.publishedAt) } }
         return articles
     }
 }

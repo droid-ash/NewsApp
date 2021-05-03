@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
 import com.newsapi.api.model.Article
 import org.newsapi.R
 import org.newsapi.databinding.ArticleListItemBinding
+import org.newsapi.load
 
 class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener) :
     ListAdapter<Article, NewsRecyclerAdapter.NewsRecyclerViewHolder>(
@@ -46,15 +45,9 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             textViewTitle.text = article.title
             textViewDate.text = article.publishedAt
             val urlToImage = article.urlToImage
-            if (urlToImage.isNullOrEmpty()) {
-                imageViewNews.load(R.drawable.ic_broken_image)
-            } else {
-                imageViewNews.load(urlToImage) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_broken_image)
-//                    transformations(CircleCropTransformation())
-                }
-            }
+
+            imageViewNews.load(urlToImage, R.drawable.dummy_image, R.drawable.dummy_image)
+
             holder.itemView.setOnClickListener {
                 articleClickListener.onArticleClicked(article)
             }
