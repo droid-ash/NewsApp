@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newsapi.api.model.Article
-import com.newsapi.api.model.NewsApiResponse
 import kotlinx.coroutines.launch
 import org.newsapi.getTimestamp
-import retrofit2.Response
-
+import org.newsapi.repository.TopHeadlinesRepository
 
 class HomeViewModel : ViewModel() {
 
@@ -24,13 +22,13 @@ class HomeViewModel : ViewModel() {
 
     fun fetchTopHeadlines(country: String, category: String) = viewModelScope.launch {
         val articleResponse = TopHeadlinesRepository.getTopHeadlines(country, category)
-        val articleList = getListFromResponse(articleResponse)
-        mutableArticleLiveData.value = articleList
-    }
+        val articleList = articleResponse.body()?.articles
+        articleList?.map { a ->
+            run {
+                a.publishedAt = getTimestamp(a.publishedAt)
+            }
 
-    private fun getListFromResponse(it: Response<NewsApiResponse>): List<Article>? {
-        val articles = it.body()?.articles
-        articles?.map { a -> { a.publishedAt = getTimestamp(a.publishedAt) } }
-        return articles
+        }
+        mutableArticleLiveData.value = articleList
     }
 }

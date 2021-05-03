@@ -1,7 +1,10 @@
 package org.newsapi.ui
 
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +12,7 @@ import com.newsapi.api.model.Article
 import org.newsapi.R
 import org.newsapi.databinding.ArticleListItemBinding
 import org.newsapi.load
+
 
 class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener) :
     ListAdapter<Article, NewsRecyclerAdapter.NewsRecyclerViewHolder>(

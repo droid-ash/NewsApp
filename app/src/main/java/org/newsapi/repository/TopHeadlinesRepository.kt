@@ -1,4 +1,4 @@
-package org.newsapi.ui.top
+package org.newsapi.repository
 
 import com.newsapi.api.NewsApiClient
 

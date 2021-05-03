@@ -5,6 +5,7 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 fun getTimestamp(publishedAt: String): String {
     val sdf = SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.ENGLISH)
     val parsedDate = sdf.parse(publishedAt) ?: return ""
@@ -31,11 +32,7 @@ fun durationFromNow(startDate: Date): String {
     return ""
 }
 
-fun ImageView.load(
-    url: String?,
-    placeholderRes: Int,
-    errorRes: Int
-) {
+fun ImageView.load(url: String?, placeholderRes: Int, errorRes: Int) {
     Picasso.get()
         .load(url)
         .placeholder(placeholderRes)

@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
             android:id="@+id/imageViewNews"
             android:layout_width="160dp"
             android:layout_height="wrap_content"

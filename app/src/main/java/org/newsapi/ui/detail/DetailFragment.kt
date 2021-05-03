@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.newsapi.api.model.Article
 import org.newsapi.R
 import org.newsapi.databinding.DetailFragmentBinding
 import org.newsapi.load
@@ -30,15 +31,31 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
-        viewModel.selectedArticle.observe(viewLifecycleOwner, {
-            binding?.imageViewArticle?.load(
-                it.urlToImage,
+        viewModel.selectedArticle.observe(viewLifecycleOwner, { article ->
+            bindData(article)
+        })
+    }
+
+    private fun bindData(article: Article) {
+        binding?.let {
+            it.titleTextView.text = article.title
+            it.descriptionTextView.text = article.content
+            it.readMoreTextView.setOnClickListener { _ ->
+                it.webView.visibility = View.VISIBLE
+                it.webView.loadUrl(article.url)
+            }
+            it.imageViewArticle.load(
+                article.urlToImage,
                 R.drawable.dummy_image,
                 R.drawable.dummy_image
             )
-            binding?.titleTextView?.text = it.title
-            binding?.descriptionTextView?.text = it.content
-        })
+            if (article.author.isNullOrEmpty()) {
+                it.textViewSource.text = article.source.name
+            } else {
+                it.textViewSource.text = article.author + "\n" + article.source.name
+            }
+            it.textViewDateTime.text = article.publishedAt
+        }
     }
 
     override fun onDestroy() {
