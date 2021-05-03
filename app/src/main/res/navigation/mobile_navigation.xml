@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_top_headlines">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="org.newsapi.ui.popular.PopularFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_popular" />
+        android:id="@+id/navigation_top_headlines"
+        android:name="org.newsapi.ui.top.TopHeadlinesFragment"
+        android:label="@string/title_top_headlines"
+        tools:layout="@layout/fragment_top_headlines" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_explore"
         android:name="org.newsapi.ui.explore.ExploreFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_explore"
         tools:layout="@layout/fragment_explore" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_saved"
         android:name="org.newsapi.ui.saved.SavedFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_saved"
         tools:layout="@layout/fragment_saved" />
 </navigation>

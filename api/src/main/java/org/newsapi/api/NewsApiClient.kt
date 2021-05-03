@@ -7,17 +7,17 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class NewsApiClient {
 
-    val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
+    private val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
         val requestBuilder = chain.request().newBuilder()
-        requestBuilder.header("X-Api-Key", "7ebb4cde0ffa4410b846668c9ef1a140")
+        requestBuilder.header(HEADER_X_API_KEY, API_KEY)
         chain.proceed(requestBuilder.build())
     }.build()
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://newsapi.org/v2/")
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .build()
 
-    val api = retrofit.create(NewsApi::class.java)
+    val client: NewsApi = retrofit.create(NewsApi::class.java)
 }

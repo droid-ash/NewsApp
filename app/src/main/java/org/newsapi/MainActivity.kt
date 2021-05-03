@@ -1,26 +1,44 @@
 package org.newsapi
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import org.newsapi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private var binding: ActivityMainBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_top_headlines, R.id.navigation_explore, R.id.navigation_saved
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        binding?.bottomNavigationView?.setupWithNavController(navController)
+        binding?.bottomNavigationView?.setOnNavigationItemReselectedListener {
+            // Do nothing to ignore the reselection
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
