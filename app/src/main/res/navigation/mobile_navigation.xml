@@ -31,5 +31,9 @@
         android:id="@+id/detailFragment"
         android:name="org.newsapi.ui.detail.DetailFragment"
         android:label="Article"
-        tools:layout="@layout/detail_fragment" />
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="articleImageUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

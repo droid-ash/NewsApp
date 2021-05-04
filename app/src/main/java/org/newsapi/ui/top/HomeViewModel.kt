@@ -31,9 +31,8 @@ class HomeViewModel : ViewModel() {
             val articleList = articleResponse.body()?.articles
             articleList?.map { a ->
                 run {
-                    a.publishedAt = getTimestamp(a.publishedAt)
+                    a.modifiedPublishedAt = getTimestamp(a.publishedAt)
                 }
-
             }
             mutableArticleLiveData.value = articleList
         }

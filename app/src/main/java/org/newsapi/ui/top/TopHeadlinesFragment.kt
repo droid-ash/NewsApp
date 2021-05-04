@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.newsapi.api.model.Article
 import org.newsapi.CATEGORY_GENERAL
 import org.newsapi.CATEGORY_LIST
 import org.newsapi.COUNTRY_IN
-import org.newsapi.R
 import org.newsapi.databinding.FragmentTopHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
+import java.util.UUID
 
 class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     CategoryAdapter.CategoryClickListener {
@@ -70,12 +72,16 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
         binding = null
     }
 
-    override fun onArticleClicked(article: Article) {
-        homeViewModel.setSelectedArticle(article)
-        findNavController().navigate(R.id.action_navigation_top_headlines_to_detailFragment)
-    }
-
     override fun onCategoryClicked(category: String) {
         observeForData(category)
+    }
+
+    override fun onArticleClicked(article: Article, imageView: ImageView) {
+        homeViewModel.setSelectedArticle(article)
+        val urlToImage = article.urlToImage ?: UUID.randomUUID().toString()
+        val extras = FragmentNavigatorExtras(imageView to urlToImage)
+        val action =
+            TopHeadlinesFragmentDirections.actionNavigationTopHeadlinesToDetailFragment(urlToImage)
+        findNavController().navigate(action, extras)
     }
 }

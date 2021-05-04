@@ -12,7 +12,9 @@ data class Article(
     @Json(name = "description")
     val description: String?,
     @Json(name = "publishedAt")
-    var publishedAt: String,
+    val publishedAt: String,
+    @Transient
+    var modifiedPublishedAt: String? = null,
     @Json(name = "source")
     val source: Source,
     @Json(name = "title")

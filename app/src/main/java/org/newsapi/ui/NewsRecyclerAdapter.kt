@@ -1,18 +1,14 @@
 package org.newsapi.ui
 
-import android.content.res.Resources
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.newsapi.api.model.Article
-import org.newsapi.R
 import org.newsapi.databinding.ArticleListItemBinding
 import org.newsapi.load
-
 
 class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener) :
     ListAdapter<Article, NewsRecyclerAdapter.NewsRecyclerViewHolder>(
@@ -30,7 +26,7 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
     ) {
 
     interface ArticleClickListener {
-        fun onArticleClicked(article: Article)
+        fun onArticleClicked(article: Article, imageView: ImageView)
     }
 
     inner class NewsRecyclerViewHolder(itemBinding: ArticleListItemBinding) :
@@ -47,13 +43,16 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             val article = getItem(position)
             textViewSource.text = article.source.name
             textViewTitle.text = article.title
-            textViewDate.text = article.publishedAt
+            textViewDate.text = article.modifiedPublishedAt
             val urlToImage = article.urlToImage
 
-            imageViewNews.load(urlToImage, R.drawable.dummy_image, R.drawable.dummy_image)
+            imageViewArticle.apply {
+                transitionName = article.urlToImage
+                load(urlToImage)
+            }
 
             holder.itemView.setOnClickListener {
-                articleClickListener.onArticleClicked(article)
+                articleClickListener.onArticleClicked(article, imageViewArticle)
             }
         }
     }

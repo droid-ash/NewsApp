@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import com.newsapi.api.model.Article
 import org.newsapi.R
 import org.newsapi.databinding.DetailFragmentBinding
@@ -16,6 +18,16 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     private var binding: DetailFragmentBinding? = null
     private val viewModel: HomeViewModel by activityViewModels()
+    private val args: DetailFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val animation =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,17 +57,16 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 it.webView.visibility = View.VISIBLE
                 it.webView.loadUrl(article.url)
             }
-            it.imageViewArticle.load(
-                article.urlToImage,
-                R.drawable.dummy_image,
-                R.drawable.dummy_image
-            )
+            it.imageViewArticle.apply {
+                transitionName = args.articleImageUrl
+                load(article.urlToImage)
+            }
             if (article.author.isNullOrEmpty()) {
                 it.textViewSource.text = article.source.name
             } else {
                 it.textViewSource.text = article.author + "\n" + article.source.name
             }
-            it.textViewDateTime.text = article.publishedAt
+            it.textViewDateTime.text = article.modifiedPublishedAt
         }
     }
 

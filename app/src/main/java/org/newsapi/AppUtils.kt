@@ -1,10 +1,9 @@
 package org.newsapi
 
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 fun getTimestamp(publishedAt: String): String {
     val sdf = SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.ENGLISH)
@@ -32,10 +31,10 @@ fun durationFromNow(startDate: Date): String {
     return ""
 }
 
-fun ImageView.load(url: String?, placeholderRes: Int, errorRes: Int) {
-    Picasso.get()
+fun ImageView.load(url: String?, errorRes: Int = R.drawable.dummy_image) {
+    Glide.with(this)
         .load(url)
-        .placeholder(placeholderRes)
+        .centerCrop()
         .error(errorRes)
         .into(this)
 }
