@@ -17,7 +17,6 @@ import org.newsapi.CATEGORY_LIST
 import org.newsapi.COUNTRY_IN
 import org.newsapi.databinding.FragmentTopHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
-import java.util.UUID
 
 class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     CategoryAdapter.CategoryClickListener {
@@ -78,10 +77,10 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
 
     override fun onArticleClicked(article: Article, imageView: ImageView) {
         homeViewModel.setSelectedArticle(article)
-        val urlToImage = article.urlToImage ?: UUID.randomUUID().toString()
-        val extras = FragmentNavigatorExtras(imageView to urlToImage)
+        val transitionUniqueId = article.articleUniqueId
+        val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)
         val action =
-            TopHeadlinesFragmentDirections.actionNavigationTopHeadlinesToDetailFragment(urlToImage)
+            TopHeadlinesFragmentDirections.actionNavigationTopHeadlinesToDetailFragment(transitionUniqueId)
         findNavController().navigate(action, extras)
     }
 }

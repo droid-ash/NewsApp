@@ -1,10 +1,14 @@
 package com.newsapi.api.model
 
+import com.newsapi.api.getTimestamp
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.UUID
 
 @JsonClass(generateAdapter = true)
 data class Article(
+    @Transient
+    val articleUniqueId: String = UUID.randomUUID().toString(),
     @Json(name = "author")
     val author: String?,
     @Json(name = "content")
@@ -14,7 +18,7 @@ data class Article(
     @Json(name = "publishedAt")
     val publishedAt: String,
     @Transient
-    var modifiedPublishedAt: String? = null,
+    val modifiedPublishedAt: String = getTimestamp(publishedAt),
     @Json(name = "source")
     val source: Source,
     @Json(name = "title")

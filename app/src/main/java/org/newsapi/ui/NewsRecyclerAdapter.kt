@@ -47,7 +47,7 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             val urlToImage = article.urlToImage
 
             imageViewArticle.apply {
-                transitionName = article.urlToImage
+                transitionName = article.articleUniqueId
                 load(urlToImage)
             }
 

@@ -33,7 +33,7 @@
         android:label="Article"
         tools:layout="@layout/detail_fragment" >
         <argument
-            android:name="articleImageUrl"
+            android:name="imageTransitionUniqueId"
             app:argType="string" />
     </fragment>
 </navigation>

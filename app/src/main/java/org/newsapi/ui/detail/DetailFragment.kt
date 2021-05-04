@@ -58,7 +58,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 it.webView.loadUrl(article.url)
             }
             it.imageViewArticle.apply {
-                transitionName = args.articleImageUrl
+                transitionName = args.imageTransitionUniqueId
                 load(article.urlToImage)
             }
             if (article.author.isNullOrEmpty()) {
