@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation "junit:junit:$junit_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
