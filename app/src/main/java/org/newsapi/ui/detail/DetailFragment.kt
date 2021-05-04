@@ -1,11 +1,11 @@
 package org.newsapi.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.newsapi.api.model.Article
 import org.newsapi.R
 import org.newsapi.databinding.DetailFragmentBinding
@@ -15,7 +15,7 @@ import org.newsapi.ui.top.HomeViewModel
 class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     private var binding: DetailFragmentBinding? = null
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +28,10 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeForData()
+    }
 
-        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-
+    private fun observeForData() {
         viewModel.selectedArticle.observe(viewLifecycleOwner, { article ->
             bindData(article)
         })
