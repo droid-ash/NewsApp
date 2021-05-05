@@ -18,4 +18,15 @@ Also fetching data from the network and integrating persisted data in the databa
   <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/search.png" width=200/></a>
   <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/save_and_delete.png" width=200/></a>
   
-</p>
+</p> <br>
+
+<h2>MAD Scorecard</h2>
+<p align="center">
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/mad_scorecard.png" /></a>
+  
+</p> <br>
+
+<h2>Preview</h2>
+<video width="320" height="240" controls>
+  <source src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.mp4" type="video/mp4">
+</video>
