@@ -16,7 +16,7 @@ interface NewsApi {
 
     @GET(EVERYTHING)
     suspend fun searchHeadlines(
-        @Query(QUERY_Q) query: String,
+        @Query(QUERY_Q) query: String?,
         @Query(QUERY_SORT_BY) sortBy: String = SORT_BY_POPULARITY,
         @Query(QUERY_PAGE_SIZE) pageSize: Int = MAX_PAGE_SIZE
     ): Response<NewsApiResponse>

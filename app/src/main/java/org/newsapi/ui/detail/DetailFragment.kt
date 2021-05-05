@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.newsapi.R
 import org.newsapi.databinding.FragmentDetailBinding
 import org.newsapi.load
-import org.newsapi.ui.home.HomeViewModel
+import org.newsapi.ui.HomeViewModel
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {

@@ -4,28 +4,85 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import org.newsapi.R
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.newsapi.api.model.Article
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.newsapi.SEARCH_NEWS_DELAY
+import org.newsapi.databinding.FragmentExploreBinding
+import org.newsapi.ui.HomeViewModel
+import org.newsapi.ui.NewsRecyclerAdapter
 
-class ExploreFragment : Fragment() {
+@AndroidEntryPoint
+class ExploreFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
 
-    private lateinit var exploreViewModel: ExploreViewModel
+    private val homeViewModel: HomeViewModel by activityViewModels()
+    private var binding: FragmentExploreBinding? = null
+    private lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        exploreViewModel =
-                ViewModelProvider(this).get(ExploreViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_explore, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        exploreViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        binding = FragmentExploreBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+        val query = homeViewModel.lastSearchQuery
+        if (!query.isNullOrEmpty()) observeForData(query)
+        addTextChangeListener()
+    }
+
+    private fun addTextChangeListener() {
+        var job: Job? = null
+        binding?.searchEditText?.addTextChangedListener { editable ->
+            job?.cancel()
+            job = MainScope().launch {
+                delay(SEARCH_NEWS_DELAY)
+                editable?.let {
+                    val searchQuery = it.toString()
+                    if (searchQuery.isNotBlank()) {
+                        observeForData(searchQuery)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeForData(query: String) {
+        binding?.progressBar?.visibility = View.VISIBLE
+        homeViewModel.searchHeadlines(query).observe(viewLifecycleOwner, {
+            newsRecyclerAdapter.submitList(it)
+            binding?.progressBar?.visibility = View.GONE
         })
-        return root
+    }
+
+    private fun setUpRecyclerView() {
+        newsRecyclerAdapter = NewsRecyclerAdapter(this)
+        binding?.recyclerViewSearch?.layoutManager = LinearLayoutManager(context)
+        binding?.recyclerViewSearch?.adapter = newsRecyclerAdapter
+    }
+
+    override fun onArticleClicked(article: Article, imageView: ImageView) {
+        homeViewModel.setSelectedArticle(article)
+        val transitionUniqueId = article.articleUniqueId
+        val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)
+        val action =
+            ExploreFragmentDirections.actionNavigationExploreToDetailFragment(transitionUniqueId)
+
+        findNavController().navigate(action, extras)
     }
 }

@@ -1,4 +1,4 @@
-package org.newsapi.ui.home
+package org.newsapi.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,12 +15,14 @@ class HomeViewModel @Inject constructor(private val newsRepository: NewsReposito
 
     val selectedArticle = MutableLiveData<Article>()
     var lastFetchCategory: String? = null
+    var lastSearchQuery: String? = null
 
     fun setSelectedArticle(item: Article) {
         selectedArticle.value = item
     }
 
     private val mutableArticleLiveData = MutableLiveData<List<Article>?>()
+    private val searchedArticleLiveData = MutableLiveData<List<Article>?>()
 
     fun fetchTopHeadlines(
         country: String,
@@ -34,6 +36,17 @@ class HomeViewModel @Inject constructor(private val newsRepository: NewsReposito
         }
         lastFetchCategory = category
         return mutableArticleLiveData
+    }
+
+    fun searchHeadlines(searchQuery: String?): LiveData<List<Article>?> {
+        if (searchQuery == lastSearchQuery) return searchedArticleLiveData
+        viewModelScope.launch {
+            val articleResponse = newsRepository.getSearchedHeadlines(searchQuery)
+            val articleList = articleResponse.body()?.articles
+            searchedArticleLiveData.value = articleList
+        }
+        lastSearchQuery = searchQuery
+        return searchedArticleLiveData
     }
 
     fun deleteArticle(article: Article) = viewModelScope.launch {

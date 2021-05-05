@@ -20,7 +20,11 @@
         android:id="@+id/navigation_explore"
         android:name="org.newsapi.ui.explore.ExploreFragment"
         android:label="@string/title_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_navigation_explore_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_saved"

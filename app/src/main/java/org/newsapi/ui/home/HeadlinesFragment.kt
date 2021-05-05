@@ -17,6 +17,7 @@ import org.newsapi.CATEGORY_GENERAL
 import org.newsapi.CATEGORY_LIST
 import org.newsapi.COUNTRY_IN
 import org.newsapi.databinding.FragmentHeadlinesBinding
+import org.newsapi.ui.HomeViewModel
 import org.newsapi.ui.NewsRecyclerAdapter
 
 @AndroidEntryPoint
@@ -49,6 +50,7 @@ class HeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     private fun observeForData(category: String?) {
         progressBar?.visibility = View.VISIBLE
         homeViewModel.fetchTopHeadlines(COUNTRY_IN, category).observe(viewLifecycleOwner, {
+            binding?.categoryRecyclerView?.visibility = View.VISIBLE
             newsRecyclerAdapter.submitList(it)
             progressBar?.visibility = View.GONE
         })

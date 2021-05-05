@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.newsapi.api.model.Article
 import org.newsapi.databinding.FragmentHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
-import org.newsapi.ui.home.HomeViewModel
+import org.newsapi.ui.HomeViewModel
 
 class SavedFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
 
