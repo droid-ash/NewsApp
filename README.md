@@ -14,20 +14,17 @@ Also fetching data from the network and integrating persisted data in the databa
 
 <p align="center">
   <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/home.png" width=200/></a>
-  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/article_and_save.png" width=200/></a>
-  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/search.png" width=200/></a>
-  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/save_and_delete.png" width=200/></a>
-  
-</p> <br>
+  <img alt="article_and_save" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/article_and_save.png" width=200/></a>
+  <img alt="search" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/search.png" width=200/></a>
+  <img alt="save_and_delete" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/save_and_delete.png" width=200/></a>
+</p><br>
 
 ## MAD Scorecard
-<p align="center">
-  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/mad_scorecard.png" /></p>
-  
-</p> <br>
+<p align="center"><img alt="mad_scorecard" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/mad_scorecard.png" /></p>
+<br>
 
 ## Preview
-<p align="center"><img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> <br></p>
+<p align="center"><img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> </p> <br>
 
 ## Libraries and tech used
 - Minimum SDK level 23
