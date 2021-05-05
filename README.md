@@ -20,14 +20,14 @@ Also fetching data from the network and integrating persisted data in the databa
   
 </p> <br>
 
-<h2>MAD Scorecard</h2>
+## MAD Scorecard
 <p align="center">
-  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/mad_scorecard.png" /></a>
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/mad_scorecard.png" /></p>
   
 </p> <br>
 
-<h2>Preview</h2>
-<img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> <br>
+## Preview
+<p align="center"><img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> <br></p>
 
 ## Libraries and tech used
 - Minimum SDK level 23
@@ -44,3 +44,25 @@ Also fetching data from the network and integrating persisted data in the databa
 - [Gson](https://github.com/google/gson/) - A JSON library for parsing network response.
 - [Glide](https://github.com/bumptech/glide) - loading images.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components for CardView, ShapeableImageView.
+<br>
+
+## API
+The project uses [NewsApi](https://newsapi.org/). If you want to run the project then obtain an API key from [NewsApi](https://newsapi.org/) and paste it in ``gradle.properties``, like this ``API_KEY = "YOUR_API_KEY"``
+
+<br>
+# License
+```xml
+Designed and developed by 2021 ashish410 (Ashish Yadav)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
