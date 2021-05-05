@@ -8,8 +8,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import org.newsapi.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_top_headlines, R.id.navigation_explore, R.id.navigation_saved)
+            setOf(R.id.navigation_headlines, R.id.navigation_explore, R.id.navigation_saved)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding?.bottomNavigationView?.setupWithNavController(navController)

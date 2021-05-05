@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
+import com.google.android.material.snackbar.Snackbar
+import com.newsapi.api.getModifiedDate
 import com.newsapi.api.model.Article
+import dagger.hilt.android.AndroidEntryPoint
 import org.newsapi.R
-import org.newsapi.databinding.DetailFragmentBinding
+import org.newsapi.databinding.FragmentDetailBinding
 import org.newsapi.load
-import org.newsapi.ui.top.HomeViewModel
+import org.newsapi.ui.home.HomeViewModel
 
-class DetailFragment : Fragment(R.layout.detail_fragment) {
+@AndroidEntryPoint
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private var binding: DetailFragmentBinding? = null
-    private val viewModel: HomeViewModel by activityViewModels()
+    private var binding: FragmentDetailBinding? = null
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +38,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DetailFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -44,7 +48,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     }
 
     private fun observeForData() {
-        viewModel.selectedArticle.observe(viewLifecycleOwner, { article ->
+        homeViewModel.selectedArticle.observe(viewLifecycleOwner, { article ->
             bindData(article)
         })
     }
@@ -62,11 +66,15 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 load(article.urlToImage)
             }
             if (article.author.isNullOrEmpty()) {
-                it.textViewSource.text = article.source.name
+                it.textViewSource.text = article.source?.name
             } else {
-                it.textViewSource.text = article.author + "\n" + article.source.name
+                it.textViewSource.text = article.author + "\n" + article.source?.name
             }
-            it.textViewDateTime.text = article.modifiedPublishedAt
+            it.textViewDateTime.text = article.getModifiedDate()
+            it.floatingActionButton.setOnClickListener { view ->
+                homeViewModel.saveArticle(article)
+                Snackbar.make(view, "Article Saved Successfully!", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 

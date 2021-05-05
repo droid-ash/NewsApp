@@ -1,8 +1,14 @@
 package com.newsapi.api
 
+import com.newsapi.api.model.Article
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.Date
+import java.util.*
+
+fun Article.getModifiedDate(): String = getTimestamp(publishedAt)
+fun Article.getArticleUniqueId(): String {
+    articleUniqueId = UUID.randomUUID().toString()
+    return articleUniqueId
+}
 
 fun getTimestamp(publishedAt: String): String {
     val sdf = SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.ENGLISH)

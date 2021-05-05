@@ -6,7 +6,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.newsapi.api.getModifiedDate
 import com.newsapi.api.model.Article
+import com.newsapi.api.getArticleUniqueId
 import org.newsapi.databinding.ArticleListItemBinding
 import org.newsapi.load
 
@@ -41,13 +43,13 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
     override fun onBindViewHolder(holder: NewsRecyclerViewHolder, position: Int) {
         ArticleListItemBinding.bind(holder.itemView).apply {
             val article = getItem(position)
-            textViewSource.text = article.source.name
+            textViewSource.text = article.source?.name
             textViewTitle.text = article.title
-            textViewDate.text = article.modifiedPublishedAt
+            textViewDate.text = article.getModifiedDate()
             val urlToImage = article.urlToImage
 
             imageViewArticle.apply {
-                transitionName = article.articleUniqueId
+                transitionName = article.getArticleUniqueId()
                 load(urlToImage)
             }
 

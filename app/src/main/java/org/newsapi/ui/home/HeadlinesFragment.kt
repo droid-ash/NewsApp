@@ -1,4 +1,4 @@
-package org.newsapi.ui.top
+package org.newsapi.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,19 +12,21 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.newsapi.api.model.Article
+import dagger.hilt.android.AndroidEntryPoint
 import org.newsapi.CATEGORY_GENERAL
 import org.newsapi.CATEGORY_LIST
 import org.newsapi.COUNTRY_IN
-import org.newsapi.databinding.FragmentTopHeadlinesBinding
+import org.newsapi.databinding.FragmentHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
 
-class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
+@AndroidEntryPoint
+class HeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     CategoryAdapter.CategoryClickListener {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
     private lateinit var categoryAdapter: CategoryAdapter
-    private var binding: FragmentTopHeadlinesBinding? = null
+    private var binding: FragmentHeadlinesBinding? = null
     private var progressBar: ProgressBar? = null
 
     override fun onCreateView(
@@ -32,7 +34,7 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTopHeadlinesBinding.inflate(inflater, container, false)
+        binding = FragmentHeadlinesBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -80,7 +82,8 @@ class TopHeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListene
         val transitionUniqueId = article.articleUniqueId
         val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)
         val action =
-            TopHeadlinesFragmentDirections.actionNavigationTopHeadlinesToDetailFragment(transitionUniqueId)
+            HeadlinesFragmentDirections.actionNavigationHeadlinesFragmentToDetailFragment(transitionUniqueId)
+
         findNavController().navigate(action, extras)
     }
 }

@@ -1,4 +1,4 @@
-package org.newsapi.ui.top
+package org.newsapi.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

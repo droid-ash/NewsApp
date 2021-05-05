@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_top_headlines">
+    app:startDestination="@+id/navigation_headlines">
 
     <fragment
-        android:id="@+id/navigation_top_headlines"
-        android:name="org.newsapi.ui.top.TopHeadlinesFragment"
-        android:label="@string/title_top_headlines"
+        android:id="@+id/navigation_headlines"
+        android:name="org.newsapi.ui.home.HeadlinesFragment"
+        android:label="@string/title_headlines"
 
-        tools:layout="@layout/fragment_top_headlines">
+        tools:layout="@layout/fragment_headlines">
         <action
-            android:id="@+id/action_navigation_top_headlines_to_detailFragment"
+            android:id="@+id/action_navigation_headlinesFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
 
@@ -26,12 +26,16 @@
         android:id="@+id/navigation_saved"
         android:name="org.newsapi.ui.saved.SavedFragment"
         android:label="@string/title_saved"
-        tools:layout="@layout/fragment_saved" />
+        tools:layout="@layout/fragment_saved" >
+        <action
+            android:id="@+id/action_navigation_saved_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="org.newsapi.ui.detail.DetailFragment"
         android:label="Article"
-        tools:layout="@layout/detail_fragment" >
+        tools:layout="@layout/fragment_detail" >
         <argument
             android:name="imageTransitionUniqueId"
             app:argType="string" />

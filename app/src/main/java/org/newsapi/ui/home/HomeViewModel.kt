@@ -1,14 +1,17 @@
-package org.newsapi.ui.top
+package org.newsapi.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newsapi.api.model.Article
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.newsapi.repository.TopHeadlinesRepository
+import org.newsapi.repository.NewsRepository
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val newsRepository: NewsRepository) : ViewModel() {
 
     val selectedArticle = MutableLiveData<Article>()
     var lastFetchCategory: String? = null
@@ -25,11 +28,21 @@ class HomeViewModel : ViewModel() {
     ): LiveData<List<Article>?> {
         if (category == lastFetchCategory) return mutableArticleLiveData
         viewModelScope.launch {
-            val articleResponse = TopHeadlinesRepository.getTopHeadlines(country, category)
+            val articleResponse = newsRepository.getTopHeadlines(country, category)
             val articleList = articleResponse.body()?.articles
             mutableArticleLiveData.value = articleList
         }
         lastFetchCategory = category
         return mutableArticleLiveData
     }
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.deleteArticle(article)
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        newsRepository.insertArticleInDb(article)
+    }
+
+    fun getSavedNews() = newsRepository.getSavedArticles()
 }

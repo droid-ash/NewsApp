@@ -12,3 +12,4 @@ const val TOP_HEADLINES = "top-headlines"
 const val EVERYTHING = "everything"
 const val MAX_PAGE_SIZE = 100
 const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss"
+const val DB_NEWS_DATA = "news_data.db"
