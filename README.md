@@ -45,8 +45,8 @@ Also fetching data from the network and integrating persisted data in the databa
 
 ## API
 The project uses [NewsApi](https://newsapi.org/). If you want to run the project then obtain an API key from [NewsApi](https://newsapi.org/) and paste it in ``gradle.properties``, like this ``API_KEY = "YOUR_API_KEY"``
-
 <br>
+
 # License
 ```xml
 Designed and developed by 2021 ashish410 (Ashish Yadav)
