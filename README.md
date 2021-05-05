@@ -29,7 +29,7 @@ Also fetching data from the network and integrating persisted data in the databa
 <h2>Preview</h2>
 <img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> <br>
 
-## Libraies and tech used
+## Libraries and tech used
 - Minimum SDK level 23
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous handling.
 - Hilt (stable) for dependency injection.
