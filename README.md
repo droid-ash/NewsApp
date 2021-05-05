@@ -27,6 +27,20 @@ Also fetching data from the network and integrating persisted data in the databa
 </p> <br>
 
 <h2>Preview</h2>
-<video width="320" height="240" controls>
-  <source src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.mp4" type="video/mp4">
-</video>
+<img src="https://github.com/ashish410/NewsApp/blob/master/previews/app_preview.gif" align="center" width="32%"/> <br>
+
+## Libraies and tech used
+- Minimum SDK level 23
+- [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous handling.
+- Hilt (stable) for dependency injection.
+- JetPack
+  - LiveData - notify domain layer data to views.
+  - Lifecycle - observing data when lifecycle state changes.
+  - ViewModel - lifecycle aware UI related data holder.
+  - Room Persistence - construct a database to store news article.
+- Architecture
+  - MVVM Architecture (View - DataBinding - ViewModel - Model)
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - for REST APIs and network data.
+- [Gson](https://github.com/google/gson/) - A JSON library for parsing network response.
+- [Glide](https://github.com/bumptech/glide) - loading images.
+- [Material-Components](https://github.com/material-components/material-components-android) - Material design components for CardView, ShapeableImageView.
