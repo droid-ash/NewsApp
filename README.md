@@ -11,3 +11,11 @@ NewsApp is a an android project based on modern Android application tech-stacks 
 Also fetching data from the network and integrating persisted data in the database via repository pattern.
 </p>
 </br>
+
+<p align="center">
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/home.png" width=200/></a>
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/article_and_save.png" width=200/></a>
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/search.png" width=200/></a>
+  <img alt="home" src="https://github.com/ashish410/NewsApp/blob/master/screenshots/save_and_delete.png" width=200/></a>
+  
+</p>
