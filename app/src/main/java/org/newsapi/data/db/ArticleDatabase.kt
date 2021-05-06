@@ -1,4 +1,4 @@
-package org.newsapi.repository.db
+package org.newsapi.data.db
 
 import android.content.Context
 import androidx.room.Database

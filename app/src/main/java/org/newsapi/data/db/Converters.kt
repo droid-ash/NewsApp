@@ -1,4 +1,4 @@
-package org.newsapi.repository.db
+package org.newsapi.data.db
 
 import androidx.room.TypeConverter
 import com.newsapi.api.model.Source

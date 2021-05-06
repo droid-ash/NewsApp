@@ -7,8 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.newsapi.repository.NewsRepository
-import org.newsapi.repository.db.ArticleDao
-import org.newsapi.repository.db.ArticleDatabase
+import org.newsapi.data.db.ArticleDao
+import org.newsapi.data.db.ArticleDatabase
 import javax.inject.Singleton
 
 @Module

@@ -2,7 +2,7 @@ package org.newsapi.repository
 
 import com.newsapi.api.NewsApiClient
 import com.newsapi.api.model.Article
-import org.newsapi.repository.db.ArticleDao
+import org.newsapi.data.db.ArticleDao
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val db: ArticleDao) {
@@ -10,7 +10,7 @@ class NewsRepository @Inject constructor(private val db: ArticleDao) {
     private val api = NewsApiClient().client
 
     suspend fun getTopHeadlines(country: String, category: String?) =
-        api.getTopHeadlinesByCountry(country, category)
+        api.getTopHeadlinesByCountry(country,category)
 
     suspend fun getSearchedHeadlines(query: String?) = api.searchHeadlines(query)
 
