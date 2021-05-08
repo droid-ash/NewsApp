@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.newsapi.databinding.CateogoryListItemBinding
 
-class CategoryAdapter(private val categoryClickListener: CategoryClickListener) :
+class CategoryAdapter(private val onCategoryClicked: (String)-> Unit) :
     ListAdapter<String, CategoryAdapter.CategoryViewHolder>(
         object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -19,10 +19,6 @@ class CategoryAdapter(private val categoryClickListener: CategoryClickListener) 
             }
         }
     ) {
-
-    interface CategoryClickListener {
-        fun onCategoryClicked(category: String)
-    }
 
     inner class CategoryViewHolder(categoryItemBinding: CateogoryListItemBinding) :
         RecyclerView.ViewHolder(categoryItemBinding.root)
@@ -38,7 +34,7 @@ class CategoryAdapter(private val categoryClickListener: CategoryClickListener) 
             val category = getItem(position)
             categoryButton.text = category
             holder.itemView.setOnClickListener {
-                categoryClickListener.onCategoryClicked(category)
+                onCategoryClicked(category)
             }
         }
     }

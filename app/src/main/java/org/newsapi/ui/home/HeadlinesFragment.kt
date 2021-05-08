@@ -21,8 +21,7 @@ import org.newsapi.ui.HomeViewModel
 import org.newsapi.ui.NewsRecyclerAdapter
 
 @AndroidEntryPoint
-class HeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
-    CategoryAdapter.CategoryClickListener {
+class HeadlinesFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
@@ -57,11 +56,12 @@ class HeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
     }
 
     private fun setUpRecyclerView() {
-        newsRecyclerAdapter = NewsRecyclerAdapter(this)
+        newsRecyclerAdapter =
+            NewsRecyclerAdapter { article, imageView -> onArticleClicked(article, imageView) }
         binding?.homeRecyclerview?.layoutManager = LinearLayoutManager(context)
         binding?.homeRecyclerview?.adapter = newsRecyclerAdapter
 
-        categoryAdapter = CategoryAdapter(this)
+        categoryAdapter = CategoryAdapter { onCategoryClicked(it) }
         binding?.categoryRecyclerView?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding?.categoryRecyclerView?.adapter = categoryAdapter
@@ -75,11 +75,11 @@ class HeadlinesFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener,
         binding = null
     }
 
-    override fun onCategoryClicked(category: String) {
+    private fun onCategoryClicked(category: String) {
         observeForData(category)
     }
 
-    override fun onArticleClicked(article: Article, imageView: ImageView) {
+    private fun onArticleClicked(article: Article, imageView: ImageView) {
         homeViewModel.setSelectedArticle(article)
         val transitionUniqueId = article.articleUniqueId
         val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)

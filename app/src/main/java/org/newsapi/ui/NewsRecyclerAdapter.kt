@@ -12,7 +12,7 @@ import com.newsapi.api.getArticleUniqueId
 import org.newsapi.databinding.ArticleListItemBinding
 import org.newsapi.load
 
-class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener) :
+class NewsRecyclerAdapter(private val articleClickListener: (Article, ImageView) -> Unit) :
     ListAdapter<Article, NewsRecyclerAdapter.NewsRecyclerViewHolder>(
         object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -26,10 +26,6 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             }
         }
     ) {
-
-    interface ArticleClickListener {
-        fun onArticleClicked(article: Article, imageView: ImageView)
-    }
 
     inner class NewsRecyclerViewHolder(itemBinding: ArticleListItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
@@ -54,7 +50,7 @@ class NewsRecyclerAdapter(private val articleClickListener: ArticleClickListener
             }
 
             holder.itemView.setOnClickListener {
-                articleClickListener.onArticleClicked(article, imageViewArticle)
+                articleClickListener(article, imageViewArticle)
             }
         }
     }
