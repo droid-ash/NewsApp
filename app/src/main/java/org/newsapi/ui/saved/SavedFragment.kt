@@ -18,7 +18,7 @@ import org.newsapi.databinding.FragmentHeadlinesBinding
 import org.newsapi.ui.NewsRecyclerAdapter
 import org.newsapi.ui.HomeViewModel
 
-class SavedFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
+class SavedFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var binding: FragmentHeadlinesBinding? = null
@@ -68,7 +68,8 @@ class SavedFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
     }
 
     private fun setUpRecyclerView() {
-        newsRecyclerAdapter = NewsRecyclerAdapter(this)
+        newsRecyclerAdapter =
+            NewsRecyclerAdapter { article, imageView -> onArticleClicked(article, imageView) }
         val homeRecyclerview = binding?.homeRecyclerview
         homeRecyclerview?.layoutManager = LinearLayoutManager(context)
         homeRecyclerview?.adapter = newsRecyclerAdapter
@@ -81,7 +82,7 @@ class SavedFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
         })
     }
 
-    override fun onArticleClicked(article: Article, imageView: ImageView) {
+    private fun onArticleClicked(article: Article, imageView: ImageView) {
         homeViewModel.setSelectedArticle(article)
         val transitionUniqueId = article.articleUniqueId
         val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)

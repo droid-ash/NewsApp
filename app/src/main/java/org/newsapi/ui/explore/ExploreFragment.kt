@@ -23,7 +23,7 @@ import org.newsapi.ui.HomeViewModel
 import org.newsapi.ui.NewsRecyclerAdapter
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
+class ExploreFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var binding: FragmentExploreBinding? = null
@@ -71,12 +71,13 @@ class ExploreFragment : Fragment(), NewsRecyclerAdapter.ArticleClickListener {
     }
 
     private fun setUpRecyclerView() {
-        newsRecyclerAdapter = NewsRecyclerAdapter(this)
+        newsRecyclerAdapter =
+            NewsRecyclerAdapter { article, imageView -> onArticleClicked(article, imageView) }
         binding?.recyclerViewSearch?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerViewSearch?.adapter = newsRecyclerAdapter
     }
 
-    override fun onArticleClicked(article: Article, imageView: ImageView) {
+    private fun onArticleClicked(article: Article, imageView: ImageView) {
         homeViewModel.setSelectedArticle(article)
         val transitionUniqueId = article.articleUniqueId
         val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)
