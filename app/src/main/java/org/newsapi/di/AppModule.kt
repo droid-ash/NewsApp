@@ -1,6 +1,8 @@
 package org.newsapi.di
 
 import android.content.Context
+import com.newsapi.api.NewsApiClient
+import com.newsapi.api.service.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,8 @@ import javax.inject.Singleton
 class AppModule {
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) = ArticleDatabase.invoke(appContext)
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        ArticleDatabase.invoke(appContext)
 
     @Singleton
     @Provides
@@ -24,5 +27,10 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(localDataSource: ArticleDao) = NewsRepository(localDataSource)
+    fun provideRepository(localDataSource: ArticleDao, api: NewsApi) =
+        NewsRepository(localDataSource, api)
+
+    @Singleton
+    @Provides
+    fun provideNewsApi() = NewsApiClient().client
 }
