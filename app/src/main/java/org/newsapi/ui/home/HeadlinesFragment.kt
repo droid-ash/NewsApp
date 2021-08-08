@@ -48,11 +48,23 @@ class HeadlinesFragment : Fragment() {
 
     private fun observeForData(category: String?) {
         progressBar?.visibility = View.VISIBLE
-        homeViewModel.fetchTopHeadlines(AppCache.CURRENT_COUNTRY, category).observe(viewLifecycleOwner, {
-            binding?.categoryRecyclerView?.visibility = View.VISIBLE
-            newsRecyclerAdapter.submitList(it)
-            progressBar?.visibility = View.GONE
-        })
+        binding?.homeRecyclerview?.visibility = View.GONE
+        homeViewModel.fetchTopHeadlines(AppCache.CURRENT_COUNTRY, category)
+            .observe(viewLifecycleOwner, {
+                progressBar?.visibility = View.GONE
+                if (it.isNullOrEmpty()) {
+                    showEmptyView("Not able to load data from server!")
+                    return@observe
+                }
+                binding?.homeRecyclerview?.visibility = View.VISIBLE
+                binding?.categoryRecyclerView?.visibility = View.VISIBLE
+                newsRecyclerAdapter.submitList(it)
+            })
+    }
+
+    private fun showEmptyView(message: String) {
+        binding?.emptyView?.visibility = View.VISIBLE
+        binding?.emptyViewText?.text = message
     }
 
     private fun setUpRecyclerView() {
@@ -84,7 +96,9 @@ class HeadlinesFragment : Fragment() {
         val transitionUniqueId = article.articleUniqueId
         val extras = FragmentNavigatorExtras(imageView to transitionUniqueId)
         val action =
-            HeadlinesFragmentDirections.actionNavigationHeadlinesFragmentToDetailFragment(transitionUniqueId)
+            HeadlinesFragmentDirections.actionNavigationHeadlinesFragmentToDetailFragment(
+                transitionUniqueId
+            )
 
         findNavController().navigate(action, extras)
     }

@@ -5,18 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HeadlinesFragment">
 
-    <ProgressBar
+    <RelativeLayout
         android:visibility="gone"
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/emptyViewImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_error" />
+
+        <TextView
+            android:id="@+id/emptyViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emptyViewImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            tools:text="Couldn't load the data properly" />
+    </RelativeLayout>
+
+    <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/viewDivider"
@@ -26,6 +50,7 @@
         android:background="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/homeRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
